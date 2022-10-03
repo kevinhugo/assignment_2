@@ -1,0 +1,102 @@
+basePath: /
+definitions:
+  resource.InputOrder:
+    properties:
+      customer_name:
+        type: string
+      items:
+        items:
+          $ref: '#/definitions/resource.InputOrderItem'
+        type: array
+      order_id:
+        type: integer
+      ordered_at:
+        type: string
+    type: object
+  resource.InputOrderItem:
+    properties:
+      description:
+        type: string
+      item_code:
+        type: string
+      item_id:
+        type: integer
+      quantity:
+        type: integer
+    type: object
+host: localhost:1337
+info:
+  contact:
+    email: hu@go.com
+    name: Hugos
+  description: Sample API Spec for Orders
+  termsOfService: https://9gag.com
+  title: Orders API
+  version: v1.0
+paths:
+  /Order:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get Order list
+      tags:
+      - Order
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: body data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/resource.InputOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Add new Order
+      tags:
+      - Order
+  /Order/{order_id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order ID
+        in: path
+        name: order_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete Order by ID
+      tags:
+      - Order
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Order ID
+        in: path
+        name: order_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Get Order by ID
+      tags:
+      - Order
+swagger: "2.0"
